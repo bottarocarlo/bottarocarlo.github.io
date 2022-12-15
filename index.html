@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Carlo Bottaro — Software Engineer</title>
+<meta name="description" content="Carlo Bottaro — software engineer in Italy. Backend and platform engineering at Sysdig. This is my corner of the internet.">
+<meta property="og:title" content="Carlo Bottaro — Software Engineer">
+<meta property="og:description" content="Software engineer in Italy. Backend and platform engineering at Sysdig.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚙️</text></svg>">
+<style>
+  :root {
+    --bg: #fdfdfc;
+    --fg: #1a1a1a;
+    --muted: #6b6b6b;
+    --line: #e4e4e0;
+    --accent: #16a34a;
+    --hl: #ede7fc;
+    --hl-strong: #e0d5fa;
+    --hl-edge: #c9b8f2;
+    --shimmer-base: #1a1a1a;
+    --shimmer-glow: #9a9a94;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #101010;
+      --fg: #e8e8e4;
+      --muted: #8f8f8a;
+      --line: #262626;
+      --accent: #22c55e;
+      --hl: #2b2440;
+      --hl-strong: #3a3057;
+      --hl-edge: #56478a;
+      --shimmer-base: #e8e8e4;
+      --shimmer-glow: #5c5c56;
+    }
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font: 16px/1.65 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  main {
+    max-width: 620px;
+    margin: 0 auto;
+    padding: 4.5rem 1.5rem 3rem;
+  }
+
+  h1 {
+    font-size: 1.05rem;
+    font-weight: 650;
+    letter-spacing: -0.01em;
+    margin: 0 0 1rem;
+  }
+
+  h2 {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--muted);
+    margin: 3rem 0 1.25rem;
+  }
+
+  p { margin: 0 0 1rem; }
+
+  a { color: inherit; text-underline-offset: 3px; }
+  a:hover { color: var(--accent); }
+
+  code {
+    font: 0.88em ui-monospace, "SF Mono", Menlo, monospace;
+  }
+
+  .bio { max-width: 56ch; }
+
+  /* ---- experience ---- */
+  .job { margin: 0 0 2rem; }
+
+  .job-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.4em;
+    margin-bottom: 0.35rem;
+  }
+
+  .company { font-weight: 650; }
+  .role { color: var(--muted); }
+
+  .dates {
+    margin-left: auto;
+    color: var(--muted);
+    font: 0.8rem ui-monospace, "SF Mono", Menlo, monospace;
+    white-space: nowrap;
+  }
+
+  .job p { margin: 0; max-width: 58ch; }
+
+  /* live indicator: pulsing dot before "now" */
+  .now { color: var(--accent); font-weight: 600; }
+  .dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    margin: 0 0.35em 1px 0.1em;
+    border-radius: 50%;
+    background: var(--accent);
+    vertical-align: baseline;
+    animation: pulse 2s ease-out infinite;
+  }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 45%, transparent); }
+    70%  { box-shadow: 0 0 0 7px transparent; }
+    100% { box-shadow: 0 0 0 0 transparent; }
+  }
+
+  /* shimmer sweeping across the current company name */
+  .shimmer {
+    background: linear-gradient(
+      100deg,
+      var(--shimmer-base) 40%,
+      var(--shimmer-glow) 50%,
+      var(--shimmer-base) 60%
+    );
+    background-size: 250% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shimmer 3.2s linear infinite;
+  }
+  @keyframes shimmer {
+    0%   { background-position: 125% 0; }
+    100% { background-position: -125% 0; }
+  }
+
+  /* ---- inline highlight reveal ----
+     Hovering a highlighted keyword blurs the sentence around it and
+     reveals a replacement ending, one word at a time. Two stacked
+     layers: the original paragraph and a ghost-aligned reveal copy. */
+  .reveal-wrap {
+    display: grid;
+    grid-template-areas: "stack";
+    position: relative;
+    text-wrap: pretty;
+  }
+  .reveal-wrap > p {
+    grid-area: stack;
+    margin: 0;
+  }
+
+  .trigger {
+    background: var(--hl);
+    border-radius: 0.15em;
+    padding: 0 0.15em;
+    box-shadow: inset 0 -1px color-mix(in srgb, var(--hl-edge) 45%, transparent);
+    cursor: pointer;
+    transition: opacity 0.54s cubic-bezier(0.4, 0, 0.2, 1),
+                filter 0.54s cubic-bezier(0.4, 0, 0.2, 1),
+                background 0.15s ease;
+  }
+  .trigger:hover, .trigger--active { background: var(--hl-strong); }
+  .trigger:focus { outline: none; }
+  .trigger:focus-visible {
+    box-shadow: inset 0 -1px color-mix(in srgb, var(--hl-edge) 45%, transparent),
+                0 0 0 3px color-mix(in srgb, var(--hl-edge) 40%, transparent);
+  }
+
+  .rv-text {
+    will-change: opacity, filter;
+    transition: opacity 0.54s cubic-bezier(0.4, 0, 0.2, 1),
+                filter 0.54s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .reveal-wrap[data-open="true"] .rv-original :is(.rv-text, .trigger:not(.trigger--active)) {
+    opacity: 0.18;
+    filter: blur(4px);
+    transition-duration: 0.68s;
+    transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+  }
+
+  .rv-layer {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .rv-layer.rv-active { opacity: 1; }
+
+  .rv-ghost { visibility: hidden; }
+
+  .rv-word { opacity: 0; }
+  .rv-layer.rv-active .rv-word {
+    animation: word-appear 0.5s ease-out calc(var(--i) * 80ms) both;
+  }
+  @keyframes word-appear { from { opacity: 0; } to { opacity: 1; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .dot { animation: none; }
+    .shimmer { animation: none; background: none; color: var(--fg); }
+    .rv-text, .trigger { transition-duration: 0.12s; }
+    .reveal-wrap[data-open="true"] .rv-original :is(.rv-text, .trigger:not(.trigger--active)) { filter: none; }
+    .rv-layer.rv-active .rv-word { animation: none; opacity: 1; }
+  }
+
+  /* ---- contact / footer ---- */
+  .links { display: flex; gap: 1.25rem; flex-wrap: wrap; }
+
+  footer {
+    margin-top: 4rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 0.8rem;
+  }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Carlo Bottaro</h1>
+    <p class="bio reveal">Software engineer in Italy. I build the parts of software you only notice when they break — and I take that personally. Powered by espresso and <span class="trigger" tabindex="0" data-reveal="— I type this more than my own name."><code>kubectl get pods</code></span>.</p>
+  </header>
+
+  <section>
+    <h2>Experience</h2>
+
+    <article class="job">
+      <div class="job-head">
+        <span class="company shimmer">Sysdig</span>
+        <span class="role">Software Engineer</span>
+        <span class="dates">Nov 2024 → <span class="now"><span class="dot"></span>now</span></span>
+      </div>
+      <p class="reveal"><span class="trigger" tabindex="0" data-reveal="— the part of the product you never see, until it breaks.">Backend</span> and platform engineering. Mostly Go, always near <span class="trigger" tabindex="0" data-reveal="— the thing that restarts my code faster than I can break it.">Kubernetes</span>.</p>
+    </article>
+
+    <article class="job">
+      <div class="job-head">
+        <span class="company">Elemento Cloud</span>
+        <span class="role">Software Engineer</span>
+        <span class="dates">Jan 2024 → Oct 2024</span>
+      </div>
+      <p class="reveal">Backend engineering at a <span class="trigger" tabindex="0" data-reveal="— small team, big blast radius, everyone touches everything.">cloud infrastructure startup</span>. First job, zero safety nets, best crash course available.</p>
+    </article>
+  </section>
+
+  <section>
+    <h2>Say hi</h2>
+    <p>The internet is more fun with fewer strangers.</p>
+    <p class="links">
+      <a href="mailto:bottarocarloo@gmail.com">bottarocarloo@gmail.com</a>
+      <a href="https://linkedin.com/in/bottarocarlo">LinkedIn</a>
+    </p>
+  </section>
+
+  <footer>© Carlo Bottaro — handmade, no template</footer>
+</main>
+
+<script>
+(function () {
+  var touch = window.matchMedia('(hover: none)').matches;
+
+  document.querySelectorAll('p.reveal').forEach(function (p) {
+    // Wrap the paragraph in a grid stack and mark the original layer.
+    var wrap = document.createElement('div');
+    wrap.className = 'reveal-wrap';
+    wrap.dataset.open = 'false';
+    p.parentNode.replaceChild(wrap, p);
+    wrap.appendChild(p);
+    p.classList.add('rv-original');
+    if (p.classList.contains('bio')) wrap.classList.add('bio-wrap');
+
+    // Wrap loose text nodes so they can blur independently of triggers.
+    Array.prototype.slice.call(p.childNodes).forEach(function (n) {
+      if (n.nodeType === Node.TEXT_NODE && n.textContent.trim() !== '') {
+        var s = document.createElement('span');
+        s.className = 'rv-text';
+        n.parentNode.insertBefore(s, n);
+        s.appendChild(n);
+      } else if (n.nodeType === Node.ELEMENT_NODE && !n.classList.contains('trigger')) {
+        n.classList.add('rv-text');
+      }
+    });
+
+    // Build one reveal layer per trigger: an invisible ghost of everything
+    // up to and including the trigger (keeps the geometry), then the
+    // replacement words, staggered by --i.
+    var nodes = Array.prototype.slice.call(p.childNodes);
+    p.querySelectorAll('.trigger').forEach(function (t) {
+      var layer = document.createElement('p');
+      layer.className = 'rv-layer';
+      layer.setAttribute('aria-hidden', 'true');
+
+      var ghost = document.createElement('span');
+      ghost.className = 'rv-ghost';
+      for (var i = 0; i < nodes.length; i++) {
+        ghost.appendChild(nodes[i].cloneNode(true));
+        if (nodes[i] === t) break;
+      }
+      ghost.querySelectorAll('[tabindex]').forEach(function (el) { el.removeAttribute('tabindex'); });
+      layer.appendChild(ghost);
+      layer.appendChild(document.createTextNode(' '));
+
+      t.getAttribute('data-reveal').split(' ').forEach(function (w, wi) {
+        var ws = document.createElement('span');
+        ws.className = 'rv-word';
+        ws.style.setProperty('--i', wi);
+        ws.textContent = w;
+        layer.appendChild(ws);
+        layer.appendChild(document.createTextNode(' '));
+      });
+      wrap.appendChild(layer);
+
+      function open() {
+        wrap.dataset.open = 'true';
+        t.classList.add('trigger--active');
+        layer.classList.add('rv-active');
+      }
+      function close() {
+        wrap.dataset.open = 'false';
+        t.classList.remove('trigger--active');
+        layer.classList.remove('rv-active');
+      }
+
+      if (touch) {
+        t.addEventListener('click', function (e) {
+          e.stopPropagation();
+          var wasOpen = layer.classList.contains('rv-active');
+          document.querySelectorAll('.rv-active').forEach(function (l) { l.classList.remove('rv-active'); });
+          document.querySelectorAll('.trigger--active').forEach(function (a) { a.classList.remove('trigger--active'); });
+          document.querySelectorAll('.reveal-wrap').forEach(function (w) { w.dataset.open = 'false'; });
+          if (!wasOpen) open();
+        });
+      } else {
+        t.addEventListener('mouseenter', open);
+        t.addEventListener('mouseleave', close);
+        t.addEventListener('focus', open);
+        t.addEventListener('blur', close);
+      }
+    });
+  });
+
+  if (touch) {
+    document.addEventListener('click', function () {
+      document.querySelectorAll('.rv-active').forEach(function (l) { l.classList.remove('rv-active'); });
+      document.querySelectorAll('.trigger--active').forEach(function (a) { a.classList.remove('trigger--active'); });
+      document.querySelectorAll('.reveal-wrap').forEach(function (w) { w.dataset.open = 'false'; });
+    });
+  }
+})();
+</script>
+</body>
+</html>
