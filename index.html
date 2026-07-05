@@ -152,6 +152,7 @@
   }
   .reveal-wrap > p {
     grid-area: stack;
+    justify-self: start;
     margin: 0;
   }
 
@@ -293,6 +294,9 @@
       var layer = document.createElement('p');
       layer.className = 'rv-layer';
       layer.setAttribute('aria-hidden', 'true');
+      // Match the original's wrap width so the ghost breaks lines identically
+      // and the revealed words land exactly after the keyword.
+      layer.style.maxWidth = getComputedStyle(p).maxWidth;
 
       var ghost = document.createElement('span');
       ghost.className = 'rv-ghost';
